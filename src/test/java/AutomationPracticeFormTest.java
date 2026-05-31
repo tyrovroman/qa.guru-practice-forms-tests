@@ -49,4 +49,93 @@ public class AutomationPracticeFormTest extends BaseTestConf {
         $x("//td[text()='State and City']//following-sibling::td").shouldHave(text("NCR" + " " + "Delhi"));
     }
 
+    @Test
+    void successfulMandatoryFieldsTest() {
+
+        open("/automation-practice-form");
+        $("[aria-label=Close]").shouldBe(visible, Duration.ofSeconds(10)).click();
+        $(byId("firstName")).setValue("Иван");
+        $(byId("lastName")).setValue("Иванов");
+        $(byCssSelector("input[value='" + "Male" + "']")).click();
+        $(byId("userNumber")).setValue("9991234567");
+
+        $(byId("submit")).scrollTo().click();
+
+        $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
+        $x("//td[text()='Student Name']//following-sibling::td").shouldHave(text("Иван" + " " + "Иванов"));
+        $x("//td[text()='Gender']//following-sibling::td").shouldHave(text("Male"));
+        $x("//td[text()='Mobile']//following-sibling::td").shouldHave(text("9991234567"));
+    }
+
+    @Test
+    void negativeShortMobileNumberTest() {
+
+        open("/automation-practice-form");
+        $("[aria-label=Close]").shouldBe(visible, Duration.ofSeconds(10)).click();
+        $(byId("firstName")).setValue("Иван");
+        $(byId("lastName")).setValue("Иванов");
+        $(byCssSelector("input[value='" + "Male" + "']")).click();
+        $(byId("userNumber")).setValue("999123456");
+
+        $(byId("submit")).scrollTo().click();
+
+        $(byId("formError")).shouldHave(text("Please fill required fields and enter a valid 10-digit mobile number."));
+    }
+
+    @Test
+    void negativeLongMobileNumberTest() {
+
+        open("/automation-practice-form");
+        $("[aria-label=Close]").shouldBe(visible, Duration.ofSeconds(10)).click();
+        $(byId("firstName")).setValue("Иван");
+        $(byId("lastName")).setValue("Иванов");
+        $(byCssSelector("input[value='" + "Male" + "']")).click();
+        $(byId("userNumber")).setValue("99912345678");
+
+        $(byId("submit")).scrollTo().click();
+
+        $(byId("formError")).shouldHave(text("Please fill required fields and enter a valid 10-digit mobile number."));
+    }
+
+    @Test
+    void negativeWithoutLastNameTest() {
+
+        open("/automation-practice-form");
+        $("[aria-label=Close]").shouldBe(visible, Duration.ofSeconds(10)).click();
+        $(byId("firstName")).setValue("Иван");
+        $(byCssSelector("input[value='" + "Male" + "']")).click();
+        $(byId("userNumber")).setValue("9991234567");
+
+        $(byId("submit")).scrollTo().click();
+
+        $(byId("formError")).shouldHave(text("Please fill required fields and enter a valid 10-digit mobile number."));
+    }
+
+    @Test
+    void negativeWithoutNameTest() {
+
+        open("/automation-practice-form");
+        $("[aria-label=Close]").shouldBe(visible, Duration.ofSeconds(10)).click();
+        $(byId("lastName")).setValue("Иванов");
+        $(byCssSelector("input[value='" + "Male" + "']")).click();
+        $(byId("userNumber")).setValue("9991234567");
+
+        $(byId("submit")).scrollTo().click();
+
+        $(byId("formError")).shouldHave(text("Please fill required fields and enter a valid 10-digit mobile number."));
+    }
+
+    @Test
+    void negativeNoGenderTest() {
+
+        open("/automation-practice-form");
+        $("[aria-label=Close]").shouldBe(visible, Duration.ofSeconds(10)).click();
+        $(byId("firstName")).setValue("Иван");
+        $(byId("lastName")).setValue("Иванов");
+        $(byId("userNumber")).setValue("9991234567");
+
+        $(byId("submit")).scrollTo().click();
+
+        $(byId("formError")).shouldHave(text("Please fill required fields and enter a valid 10-digit mobile number."));
+    }
 }
