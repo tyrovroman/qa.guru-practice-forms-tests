@@ -7,13 +7,13 @@ import static com.codeborne.selenide.Selenide.closeWebDriver;
 public class BaseTestConf {
 
     @BeforeAll
-    static void beforeAll() {
+    static void setUp() {
         Configuration.browserSize = "1920x1080";
         Configuration.baseUrl = "https://qa-guru.github.io/one-page-form";
     }
 
     @AfterEach
-    void afterEach() {
+    void tearDown() {
         closeWebDriver();
     }
 
