@@ -21,4 +21,5 @@ tasks.withType(JavaCompile) {
 
 test {
     useJUnitPlatform()
+    systemProperty "java.util.logging.config.file", "${projectDir}/src/test/resources/logging.properties"
 }
