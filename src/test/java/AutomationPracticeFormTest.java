@@ -34,18 +34,16 @@ public class AutomationPracticeFormTest extends BaseTestConf {
         $("#submit").scrollTo().click();
 
         $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
-        $(".table-responsive").shouldHave(
-                text("Иван Иванов"),
-                text("ivanov@example.com"),
-                text("Male"),
-                text("9991234567"),
-                text("09 May 1987"),
-                text("Maths"),
-                text("Sports"),
-                text("test.png"),
-                text("г. Дели, ул. Ленина, д. 1, кв. 27"),
-                text("NCR Delhi")
-        );
+        $(".table-responsive").shouldHave(text("Иван Иванов"));
+        $(".table-responsive").shouldHave(text("ivanov@example.com"));
+        $(".table-responsive").shouldHave(text("Male"));
+        $(".table-responsive").shouldHave(text("9991234567"));
+        $(".table-responsive").shouldHave(text("09 May 1987"));
+        $(".table-responsive").shouldHave(text("Maths"));
+        $(".table-responsive").shouldHave(text("Sports"));
+        $(".table-responsive").shouldHave(text("test.png"));
+        $(".table-responsive").shouldHave(text("г. Дели, ул. Ленина, д. 1, кв. 27"));
+        $(".table-responsive").shouldHave(text("NCR Delhi"));
 
         $("#closeModal").click();
     }
@@ -55,28 +53,21 @@ public class AutomationPracticeFormTest extends BaseTestConf {
     void successfulMandatoryFieldsTest() {
         open("/automation-practice-form");
 
-        // Убираем рекламные баннеры и футер, чтобы не перекрывали кнопку отправки
         executeJavaScript("$('#fixedban').remove()");
         executeJavaScript("$('footer').remove()");
 
-        // Заполнение только обязательных полей
         $("#firstName").setValue("Иван");
         $("#lastName").setValue("Иванов");
         $("#genterWrapper").$(byText("Male")).click();
         $("#userNumber").setValue("9991234567");
 
-        // Отправка формы
         $("#submit").scrollTo().click();
 
-        // Проверка результатов в модальном окне
         $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
-        $(".table-responsive").shouldHave(
-                text("Иван Иванов"),
-                text("Male"),
-                text("9991234567")
-        );
+        $(".table-responsive").shouldHave(text("Иван Иванов"));
+        $(".table-responsive").shouldHave(text("Male"));
+        $(".table-responsive").shouldHave(text("9991234567"));
 
-        // Закрытие модального окна в самом конце теста
         $("#closeModal").click();
     }
 
